@@ -37,6 +37,84 @@ let hasUserPassword = (password) => {
     }
   });
 };
+let getAllUser = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let users = db.User.findAll({
+        raw: true,
+      });
+      resolve(users);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let getUserInfoByID = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: userId },
+      });
+      if (user) {
+        resolve(user);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+//update User
+let updateUserData = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (user) {
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+
+        await user.save();
+        let alluser = await db.User.findAll();
+        resolve(alluser);
+      } else {
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+//delete User
+let DeleteCRUD = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User;
+      await user.destroy({
+        where: { id: userId },
+      });
+      // let user = await db.User.findOne({
+      //   where: { id: userId },
+      // });
+      // if (user) {
+      //   await user.distroy();
+      // }
+
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   createNewUser: createNewUser,
+  getAllUser: getAllUser,
+  getUserInfoByID: getUserInfoByID,
+  updateUserData: updateUserData,
+  DeleteCRUD: DeleteCRUD,
 };

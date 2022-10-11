@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Basic Table</h2>
+      <p>
+        The .table class adds basic styling (light padding and only horizontal
+        dividers) to a table:
+      </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for(let i=0; i<dataTable.length; i++) {%>
+                <tr>
+                    <td><%= dataTable[i].email%></td>
+                    <td><%= dataTable[i].firstName%></td>
+                    <td><%= dataTable[i].lastName%></td>
+                    <td><%= dataTable[i].address%></td>
+                    <td>
+                        <a href="/edit-crud?id=<%=dataTable[i].id %>" type="button" class="btn btn-primary ">Edit</a>
+                        <a href="/delete-crud?id=<%=dataTable[i].id %>" type="button" class="btn btn-warning">Delete</a>
+                    </td>
+                </tr>
+             <% } %>
+          
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
